@@ -11,8 +11,40 @@ interface Purchase {
   userId: string;
   createdAt: string;
   updatedAt: string;
-  Plan: Plan; 
+  Plan: Plan | null; 
 }
+
+const PurchaseCard: React.FC<{ purchase: Purchase }> = ({ purchase }) => (
+  <div
+    className="plan-card"
+    key={purchase.id}
+    style={{
+      border: '2px solid white',
+      marginBottom: '10px',
+      borderRadius: '5px',
+      width: '500px',
+    }}
+  >
+    <h2>Purchase Details</h2>
+    <p>Purchase ID: {purchase.id}</p>
+    <p>User ID: {purchase.userId}</p>
+    {purchase.Plan ? (
+      <>
+        <p>Plan Name: {purchase.Plan.name}</p>
+        <p>Plan Steps:</p>
+        <ul>
+          {purchase.Plan.steps.map((step, index) => (
+            <li key={index}>{step.name}</li>
+          ))}
+        </ul>
+      </>
+    ) : (
+      <p>No Plan Available</p>
+    )}
+    <p>Created At: {new Date(purchase.createdAt).toLocaleString()}</p>
+    <p>Updated At: {new Date(purchase.updatedAt).toLocaleString()}</p>
+  </div>
+);
 
 const Purchases = () => {
   const [purchases, setPurchases] = useState<Purchase[]>([]);
@@ -42,43 +74,13 @@ const Purchases = () => {
     };
 
     fetchPurchases();
-  }, [token]); // Include token as a dependency for useEffect
+  }, [token]); 
 
   return (
     <div>
       <h2>Purchases</h2>
       {purchases.length > 0 ? (
-        purchases.map(({ id, userId, createdAt, updatedAt, Plan }) => (
-          <div
-            className="plan-card"
-            key={id}
-            style={{
-              border: '2px solid white',
-              marginBottom: '10px',
-              borderRadius: '5px',
-              width: '500px',
-            }}
-          >
-            <h2>Purchase Details</h2>
-            <p>Purchase ID: {id}</p>
-            <p>User ID: {userId}</p>
-            {Plan ? (
-              <>
-                <p>Plan Name: {Plan.name}</p>
-                <p>Plan Steps:</p>
-                <ul>
-                  {Plan.steps.map((step, index) => (
-                    <li key={index}>{step.name}</li>
-                  ))}
-                </ul>
-              </>
-            ) : (
-              <p>No Plan Available</p>
-            )}
-            <p>Created At: {new Date(createdAt).toLocaleString()}</p>
-            <p>Updated At: {new Date(updatedAt).toLocaleString()}</p>
-          </div>
-        ))
+        purchases.map((purchase) => <PurchaseCard key={purchase.id} purchase={purchase} />)
       ) : (
         <p>No plans available</p>
       )}
