@@ -13,6 +13,12 @@
 
 I have implemented very basic things only because of time contraints. We can add testings, litings and other things to make this version robust.
 
+### Packages used
+1. `dotenv`: so that we can extract environmental variables.
+2. `react-router-dom`: so that we can use routes.
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
