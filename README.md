@@ -1,3 +1,18 @@
+# Dev Note
+
+### Implementations
+1. Login Page: We have login page implemented on front end. The username and password that is seeded is `john.smith@example.com` and `password123`. After login, we store the token on local storage and use context API to make sure the user is logged in.
+
+2. Plan listing: After login, user are taken to dashboard and there is link to navigate to `plans` and `purchases`.
+
+3. User Dashboard: There is simple user Dashboard that has a link of `plans` and `purchases`.
+
+4. Styling: Very basic styling is added.
+
+### What can be improved?
+
+I have implemented very basic things only because of time contraints. We can add testings, litings and other things to make this version robust.
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
